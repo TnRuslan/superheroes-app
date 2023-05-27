@@ -8,7 +8,8 @@ const getAll = async (req, res) => {
     .select({ nikname: 1, images: 1, name: 1 })
     .skip(page * limit)
     .limit(limit);
-  res.json({ result, limit, page });
+  const totalCount = await Hero.find({}).count();
+  res.json({ result, limit, page, totalCount });
 };
 
 const getHeroById = async (req, res) => {
@@ -21,7 +22,7 @@ const getHeroById = async (req, res) => {
   res.json({ result });
 };
 
-const addHero = async (req, res) => {
+const createHero = async (req, res) => {
   const newHero = await Hero.create({ ...req.body });
   res.status(201).json(newHero);
 };
@@ -54,16 +55,14 @@ const deleteHero = async (req, res) => {
 };
 
 const uploadPhoto = async (req, res) => {
-  console.log("file", req);
-
   res.json({ message: "uploaded", result: req.file.path });
 };
 
 module.exports = {
   getAll: cntrlWrapper(getAll),
-  addHero: cntrlWrapper(addHero),
   getHeroById: cntrlWrapper(getHeroById),
   updateHero: cntrlWrapper(updateHero),
   deleteHero: cntrlWrapper(deleteHero),
   uploadPhoto: cntrlWrapper(uploadPhoto),
+  createHero: cntrlWrapper(createHero),
 };

@@ -14,7 +14,11 @@ const hero = new Schema({
     type: String,
     required: true,
   },
-  catch_phrase: {
+  superPowers: {
+    type: String,
+    required: true,
+  },
+  catchPhrase: {
     type: String,
     required: false,
   },
