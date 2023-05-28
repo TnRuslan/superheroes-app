@@ -12,10 +12,6 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "hello" });
-});
-
 app.use("/heroes", heroRouter);
 
 app.use((req, res, next) => {

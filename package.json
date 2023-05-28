@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
     "start": "cross-env NODE_ENV=production node ./server.js",
-    "start:dev": "cross-env NODE_ENV=development nodemon ./server.js",
-    "lint": "eslint **/*.js",
-    "lint:fix": "eslint --fix **/*.js"
+    "start:dev": "cross-env NODE_ENV=development nodemon ./server.js"
   },
   "dependencies": {
     "cloudinary": "^1.37.0",
