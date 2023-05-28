@@ -29,6 +29,7 @@ const createHero = async (req, res) => {
 
 const updateHero = async (req, res) => {
   const { heroId: _id } = req.params;
+
   const result = await Hero.findByIdAndUpdate(
     _id,
     { ...req.body },
