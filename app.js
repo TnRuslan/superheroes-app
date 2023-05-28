@@ -15,7 +15,7 @@ app.use(express.json());
 app.use("/heroes", heroRouter);
 
 app.use((req, res, next) => {
-  next(HttpError(404, "Not Found2"));
+  next(HttpError(404, "Not Found"));
 });
 
 app.use((err, req, res, next) => {
