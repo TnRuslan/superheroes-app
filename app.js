@@ -3,6 +3,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const { HttpError } = require("./helpers");
 const { heroRouter } = require("./routes/superheroesRouter");
+const { authRouter } = require("./routes/userRoutes");
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
+app.use("/auth", authRouter);
 app.use("/heroes", heroRouter);
 
 app.use((req, res, next) => {

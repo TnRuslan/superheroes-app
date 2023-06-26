@@ -1,20 +1,22 @@
 const { cntrlWrapper, HttpError } = require("../helpers");
-const { Hero } = require("../models/superheroModel");
+const {
+  findAll,
+  findById,
+  createHeroDb,
+  updateHeroDb,
+  removeHeroFromDb,
+} = require("../services/heroDbServices");
 
 const getAll = async (req, res) => {
   const { page = 0 } = req.query;
   const limit = 5;
-  const result = await Hero.find({})
-    .select({ nikname: 1, images: 1, name: 1 })
-    .skip(page * limit)
-    .limit(limit);
-  const totalCount = await Hero.find({}).count();
+  const { result, totalCount } = await findAll(page, limit);
   res.json({ result, limit, page, totalCount });
 };
 
 const getHeroById = async (req, res) => {
   const { heroId: _id } = req.params;
-  const result = await Hero.findById(_id).select({ __v: 0 });
+  const result = await findById(_id);
   if (!result) {
     throw HttpError(404, "Not Found");
   }
@@ -23,18 +25,15 @@ const getHeroById = async (req, res) => {
 };
 
 const createHero = async (req, res) => {
-  const newHero = await Hero.create({ ...req.body });
+  const newHero = await createHeroDb(req.body);
   res.status(201).json(newHero);
 };
 
 const updateHero = async (req, res) => {
   const { heroId: _id } = req.params;
+  const newParams = req.body;
 
-  const result = await Hero.findByIdAndUpdate(
-    _id,
-    { ...req.body },
-    { new: true }
-  ).select({ __v: 0 });
+  const result = await updateHeroDb(_id, newParams);
 
   if (!result) {
     throw HttpError(404, "Hero not found");
@@ -46,7 +45,7 @@ const updateHero = async (req, res) => {
 const deleteHero = async (req, res) => {
   const { heroId: _id } = req.params;
 
-  const result = await Hero.findByIdAndRemove(_id);
+  const result = await removeHeroFromDb(_id);
 
   if (!result) {
     throw HttpError(404, "Hero not found");
