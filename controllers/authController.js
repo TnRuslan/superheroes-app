@@ -21,10 +21,8 @@ const registration = async (req, res) => {
   const newUser = await createNewUser(email, password, name);
 
   res.status(201).json({
-    user: {
-      email: newUser.email,
-      name: newUser.name,
-    },
+    email: newUser.email,
+    name: newUser.name,
   });
 };
 

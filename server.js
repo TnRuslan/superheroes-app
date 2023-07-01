@@ -11,7 +11,7 @@ conection
   .then(
     app.listen(PORT, () => {
       console.log(
-        "Server running. Use our API on port: 8080. Database connection successful"
+        `Server running. Use our API on port: ${PORT}. Database connection successful`
       );
     })
   )

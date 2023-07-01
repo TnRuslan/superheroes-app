@@ -1,9 +1,11 @@
 const uploadCloud = require("./uploadMiddleware");
-const validationMiddleware = require("./validationMiddleware");
+const validateBody = require("./validationMiddleware");
 const authMiddleware = require("./authMiddlewar");
+const isValidId = require("./isValidId");
 
 module.exports = {
   uploadCloud,
-  validationMiddleware,
+  validateBody,
   authMiddleware,
+  isValidId,
 };

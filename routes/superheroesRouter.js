@@ -7,20 +7,21 @@ const {
   uploadPhoto,
   createHero,
 } = require("../controllers/heroContollers");
-const { uploadCloud, validationMiddleware } = require("../middlewares");
+const { uploadCloud, validateBody } = require("../middlewares");
 const { heroSchema, updateSchema } = require("../schemas/heroSchema");
+const { isValidId } = require("../middlewares");
 
 const router = express.Router();
 
 router.get("/", getAll);
 
-router.get("/:heroId", getHeroById);
+router.get("/:heroId", isValidId, getHeroById);
 
-router.post("/", validationMiddleware(heroSchema), createHero);
+router.post("/", validateBody(heroSchema), createHero);
 
-router.patch("/:heroId", validationMiddleware(updateSchema), updateHero);
+router.patch("/:heroId", isValidId, validateBody(updateSchema), updateHero);
 
-router.delete("/:heroId", deleteHero);
+router.delete("/:heroId", isValidId, deleteHero);
 
 router.post("/photo", uploadCloud.single("image"), uploadPhoto);
 

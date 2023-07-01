@@ -1,6 +1,6 @@
 const { HttpError } = require("../helpers");
 
-const validationMiddleware = (schema) => {
+const validateBody = (schema) => {
   return (req, res, next) => {
     const { error } = schema.validate(req.body);
 
@@ -11,4 +11,4 @@ const validationMiddleware = (schema) => {
   };
 };
 
-module.exports = validationMiddleware;
+module.exports = validateBody;
