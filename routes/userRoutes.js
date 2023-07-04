@@ -5,13 +5,14 @@ const {
   logOut,
   getCurrentUser,
 } = require("../controllers/authController");
-const { authMiddleware } = require("../middlewares");
+const { authMiddleware, validateBody } = require("../middlewares");
+const { registerSchema, loginSchema } = require("../schemas/userSchema");
 
 const router = express.Router();
 
-router.post("/registration", registration);
+router.post("/registration", validateBody(registerSchema), registration);
 
-router.post("/logIn", logIn);
+router.post("/logIn", validateBody(loginSchema), logIn);
 
 router.post("/logOut", authMiddleware, logOut);
 

@@ -2,8 +2,9 @@ const { Hero } = require("../models/superheroModel");
 
 const findAll = async (page, limit) => {
   const result = await Hero.find({})
-    .select({ nikname: 1, images: 1, name: 1 })
-    .skip(page * limit)
+    .populate("owner", "name email")
+    .select({ nikname: 1, images: 1, name: 1, owner: 1 })
+    .skip((page - 1) * limit)
     .limit(limit);
 
   const totalCount = await Hero.find({}).count();

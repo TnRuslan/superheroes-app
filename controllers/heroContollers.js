@@ -8,8 +8,7 @@ const {
 } = require("../services/heroDbServices");
 
 const getAll = async (req, res) => {
-  const { page = 0 } = req.query;
-  const limit = 5;
+  const { page = 1, limit = 5 } = req.query;
   const { result, totalCount } = await findAll(page, limit);
   res.json({ result, limit, page, totalCount });
 };
@@ -25,7 +24,8 @@ const getHeroById = async (req, res) => {
 };
 
 const createHero = async (req, res) => {
-  const newHero = await createHeroDb(req.body);
+  const { _id: owner } = req.user;
+  const newHero = await createHeroDb({ ...req.body, owner });
   res.status(201).json(newHero);
 };
 
