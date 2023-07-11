@@ -6,7 +6,7 @@ const heroSchema = Joi.object({
   origin: Joi.string().required(),
   superPowers: Joi.string().required(),
   catchPhrase: Joi.string().required(),
-  images: Joi.string(),
+  images: Joi.array().items(Joi.string()),
 })
   .required()
   .max(6);

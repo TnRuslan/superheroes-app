@@ -24,8 +24,8 @@ const hero = new Schema(
       required: false,
     },
     images: {
-      type: String,
-      default: null,
+      type: Array,
+      default: [],
     },
     owner: {
       type: Schema.Types.ObjectId,

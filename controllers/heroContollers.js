@@ -26,6 +26,7 @@ const getHeroById = async (req, res) => {
 const createHero = async (req, res) => {
   const { _id: owner } = req.user;
   const newHero = await createHeroDb({ ...req.body, owner });
+
   res.status(201).json(newHero);
 };
 
